@@ -1,13 +1,18 @@
-//Define the player class here
+//Define the player object here
 
 
-//Define the Constructor function for Product class here
+//Define the Product class - write the Constructor function for Product class here
 
 
 //Here, use Object.defineProperty to create property - daysToExpire
 
 
-//Implement the dateDiff function here
+
+//Complete the dateDiff function
+const dateDiff = (date1, date2) => {
+};
+
+//Add method getDetails to Product using its prototype
 
 
 //Define the MagicProduct class here
