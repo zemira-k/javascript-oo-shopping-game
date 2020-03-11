@@ -1,6 +1,7 @@
 //Define the player object here
 
 
+
 //Define the Product class - write the Constructor function for Product class here
 
 
@@ -171,8 +172,7 @@ function doAction(o, d) {
     }
 }
 
-main();
-
+//main(); // Uncomment this line of code
 
 exports.loadMasterData = loadMasterData;
 exports.getProduct = getProduct;
