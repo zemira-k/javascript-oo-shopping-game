@@ -1,5 +1,4 @@
 var test = require('unit.js');
-var sinon = require('sinon');
 const shoppinggame = require('../js/shoppinggame');
 
 
