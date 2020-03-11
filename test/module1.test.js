@@ -36,8 +36,13 @@ describe('Shopping Master game', function(){
 
     it('Should define the Product class. @Product-object', function(){
         test.assert(shoppinggame.Product, "Have you defined and exported a `Product` object?");
+        let obj = new shoppinggame.Product(1,"test",10.50,new Date());
+        test.assert(obj.id != undefined &&
+                    obj.name != undefined &&
+                    obj.price != undefined &&
+                    obj.expiryDate != undefined, 
+            "Have you defined properties `id`, `name`, `price` and `expiryDate` and initialized them?");
     });
 
-   
 });
 
