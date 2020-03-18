@@ -7,23 +7,20 @@
 // Define the Product class - write the Constructor function for Product class here
 
 
+// Complete the dateDiff function
+const dateDiff = (date1, date2) => {};
+
+
 // Here, use Object.defineProperty to create property - daysToExpire
 
 
-// Complete the dateDiff function
-const dateDiff = (date1, date2) => {
-};
-
-// Add method getDetails to Product using its prototype
+// Add method getDetails to Product here
 
 
 // Define the MagicProduct class here
 
 
 // Create the link between Product & MagicProduct classes here 
-
-
-// Add method getDetails to Product class
 
 
 // Define Rating class here
@@ -58,8 +55,13 @@ function loadMasterData() {
     productData.set("sugar", { pr: 100, dt: oneYearLater });
 
 
+    // Call Object.keys() to load the property names of the Product object in to an array named prodKeys here
 
+    // Complete the loadProducts function
     const loadProducts = (value, key, map) => {};
+
+    
+    productData.forEach(loadProducts);
 
 
     //##############Load MagicProducts###############################
@@ -71,6 +73,7 @@ function loadMasterData() {
     magicProductData.set("cocktails", { pr: 2000, dt: oneYearLater, pt: 40, isB: true });
 
 
+    // Complete the loadMagicProducts function
     const loadMagicProducts = (value, key, map) => {};
 
 
@@ -175,7 +178,7 @@ function doAction(o, d) {
 
 //main(); // Uncomment this line of code once all functionality is complete
 
-
+exports.dateDiff = dateDiff;
 exports.loadMasterData = loadMasterData;
 exports.getProduct = getProduct;
 exports.findProductById = findProductById;
