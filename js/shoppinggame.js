@@ -20,16 +20,92 @@ const dateDiff = (date1, date2) => {};
 // Define the MagicProduct class here
 
 
-// Create the link between Product & MagicProduct classes here 
+// Establish inheritance between Product() & MagicProduct() here
 
 
 // Define Rating class here
 
 
+// Complete the loadProducts function
+const loadProducts = (map, prodId) => {
+    // Call Object.keys() to load the property names of the Product object in to prodKeys array here
+    let prodKeys = [];
+    let a = new Array();
+   
+    let iterator_obj = map.entries(); 
 
-// Complete this function
+    if(prodKeys.length > 0) {
+        for (let item of iterator_obj) {
+            const key = item[0];
+            const value = item[1];
+
+            // Create and assign an instance of Product to prodObj here
+            let prodObj;
+
+            for (let i = 0; i < prodKeys.length; i++) {
+                let property = prodKeys[i];
+                if (property == "id") {
+                    prodObj[property] = prodId;
+                } else if (property == "name") {
+                    prodObj[property] = key;
+                } else if (property == "price") {
+                    prodObj[property] = value.pr;
+                } else if (property == "expiryDate") {
+                    prodObj[property] = value.dt;
+                }
+            }
+
+            a.push(prodObj);
+            prodId++;
+        }
+    }
+
+    return a;
+};
+
+
+// Complete the loadMagicProducts function
+const loadMagicProducts = (map, prodId) => {
+    // Call Object.key() to load the property names of the MagicProduct object in to magProdKeys array here
+    let magProdKeys = [];
+    let a = new Array();
+
+    let iterator_obj = map.entries(); 
+
+    if(magProdKeys.length > 0) {
+        for (let item of iterator_obj) {
+            const key = item[0];
+            const value = item[1];
+
+            // Create and assign an instance of MagicProduct to prodObj here
+            let magProdObj;
+
+            for (let i = 0; i < magProdKeys.length; i++) {
+                let property = magProdKeys[i];
+                if (property == "id") { 
+                    magProdObj[property] = prodId;
+                } else if (property == "name") {
+                    magProdObj[property] = key;
+                } else if (property == "price") {
+                    magProdObj[property] = value.pr;
+                } else if (property == "expiryDate") {
+                    magProdObj[property] = value.dt;
+                } else if (property == "points") {
+                    magProdObj[property] = value.pt;
+                } else if (property == "isBonus") {
+                    magProdObj[property] = value.isB;
+                }
+            }
+
+            a.push(magProdObj);
+            prodId++;
+        }
+    }
+    return a;
+
+};
+
 function loadMasterData() {
-    let productsList = new Array();
     let prodId = 1;
 
     const today = new Date();
@@ -54,15 +130,8 @@ function loadMasterData() {
     productData.set("greens", { pr: 50, dt: daysLater });
     productData.set("sugar", { pr: 100, dt: oneYearLater });
 
-
-    // Call Object.keys() to load the property names of the Product object in to an array named prodKeys here
-
-    // Complete the loadProducts function
-    const loadProducts = (value, key, map) => {};
-
     
-    productData.forEach(loadProducts);
-
+    let pro = loadProducts(productData, prodId);
 
     //##############Load MagicProducts###############################
     let magicProductData = new Map();
@@ -72,25 +141,59 @@ function loadMasterData() {
     magicProductData.set("champagne", { pr: 2000, dt: oneYearLater, pt: 40, isB: true });
     magicProductData.set("cocktails", { pr: 2000, dt: oneYearLater, pt: 40, isB: true });
 
+    
+    prodId = pro.length + 1;
 
-    // Complete the loadMagicProducts function
-    const loadMagicProducts = (value, key, map) => {};
+    let mpro = loadMagicProducts(magicProductData,prodId);
+    let productsList;
 
+    if((pro != null && pro.length > 0) && (mpro != null && mpro.length > 0)) {
+        productsList = pro.concat(mpro);
+    }
 
     return productsList;
 }
 
-const getProduct = (prodList) => {};
+// Complete this function
+const getProduct = (prodList) => {
+    // Populate `rand` with a radom integer beiween 1 and 20 (1 and 20 included), created using the Math built-in object type
+    let rand; 
+    return prodList.find(findProductById(rand));
+};
 
+// Complete this function
 const findProductById = (id) => {};
 
-const findPointsToBill = (roundedTotal) => {};
-
-const findPointsForExpDate = (prod) => {};
-
+// Complete this function
 const  claculateBill = (prod, tBill) => {};
 
-const claculatePoints = (prod, tBill) => {};
+const findPointsToBill = (roundedTotal) => {
+    if (roundedTotal > 10 && roundedTotal <= 100) {
+        return 5;
+    } else if (roundedTotal > 100 && roundedTotal <= 250) {
+        return 10;
+    } else if (roundedTotal > 250 && roundedTotal <= 400) {
+        return 15;
+    } else if (roundedTotal > 400 && roundedTotal <= 500) {
+        return 20;
+    } else if (roundedTotal > 500 && roundedTotal <= 750) {
+        return 25;
+    } else if (roundedTotal > 1000) {
+        return 50;
+    } else {
+        return 0;
+    }
+};
+
+
+// Complete this function
+const findPointsForExpDate = (prod) => {};
+
+
+const claculatePoints = (prod, tBill) => {
+    let pointsToBill = findPointsToBill(Math.round(tBill));
+    let pointsForExpDate = findPointsForExpDate(prod);
+};
 
 // Complete this function
 function init(data) {
@@ -103,9 +206,17 @@ function init(data) {
     console.log("2 - Quit".green);
     console.log("=============================================================================================\n");
 
-    rl.question("What's your name? ", function (name) {
-        
-    });
+    if(Object.is(data,undefined)) {
+        console.log("Game under construction ...");
+    } else {
+        rl.question("What's your name? ", function (name) {
+            // Assign the player's name to the user entered name here
+
+            console.log(`Welcome ${player.name} !!!`.blue);
+            console.log(`Welcome ${player.name} !!!`.blue);
+            start(data);
+        });
+    }
 }
 
 function start(data) {
@@ -122,32 +233,78 @@ function start(data) {
 // Complete this function
 const shop = (prodList, lastProd) => {
     let totalBill = 0;
-    let product = null;
+    let product = null; // Assign the value of `product` here
+    let productDetails = null; // Assign the value of `productDetails` here
+ 
+    rl.question(`You can buy - ${productDetails}.\n Do you want to buy this item <Y/N>? `.yellow, function (option) {
+        const regexYes = null; // Use the RegExp built-in object type here as appropriate
+        const regexNo = null; // Use the RegExp built-in object type here as appropriate
+        if (regexYes.test(option)) {
+            totalBill = claculateBill(product, totalBill);
+            claculatePoints(product, totalBill);
+            console.log(`${player.name} you earned ${player.getCurrentScore()} points!`.bold);
+            if (player.score > 500) {
+                exitWon();
+            } else {
+                let iCount = ++player.items;
+                // Make the Object.defineProperty() call here to set the value of `items` using the value of `iCount`
 
-    rl.question("Do you want to buy this item <Y/N>? ", function (option) {
-       
+                if (player.items < 10) {
+                    shop(prodList);
+                } else {
+                    exitLost();
+                }
+            }
+
+        } else if (regexNo.test(option)) {
+            if (player.items < 10) {
+                shop(prodList);
+            } else {
+                exitLost();
+            }
+        } else {
+            console.log("Invalid option! Enter Y or N.".red);
+            shop(prodList, product);
+        }
     });
 };
 
 // Complete this function
 const rateAndExit = () => {
+    // Create a new instance of `Rating` and assign it to a variable named `playerRating` here
     rl.question("How would you rate this game on a scale of 1-10 (1 being the lowest)?:", function (r) {
-       
+        if(r == "" || isNaN(r) || r == 0 || r > 10) {
+            console.log("Invalid rating! Please nter a number from 1 - 10".red);
+            rateAndExit(); 
+        } else {
+            // Call `rating` setter method of `playerRating` to set user entered rate value here
+
+            // Call Object.assign() method here to populate `targer`
+
+            console.log(`${target.name} you rated this game as ${target.rate}`.green);
+            console.log("Thank you for your valuable feedback.".blue);
+            rl.close();
+        }        
     });
 };
 
 // Complete this function
 const exitLost = () => {
-    console.log(`Your chances are over! You are short of ${500} to become a Shopping Master. Good Luck for next time!`.yellow);
+    let pointsToReach; // Assign calculated value to `pointsToReach` here
+    console.log(`Your chances are over! You are short of ${pointsToReach} to become a Shopping Master. Good Luck for next time!`.yellow);
+    rateAndExit();
 };
 
 // Complete this function
 const exitWon = () => {
-    console.log(`Congratulations!!! You became ${0}!`.blue);
+    let finalScore;
+    console.log(`Congratulations!!! You became ${finalScore}!`.blue);
+    rateAndExit();
 };
 
 function main() {
-    process.exit(0); // Replace this with correct function calls
+    let products = loadMasterData();
+    init(products);
 }
 
 
@@ -176,9 +333,12 @@ function doAction(o, d) {
     }
 }
 
-//main(); // Uncomment this line of code once all functionality is complete
+main();
+
 
 exports.dateDiff = dateDiff;
+exports.loadProducts = loadProducts;
+exports.loadMagicProducts = loadMagicProducts;
 exports.loadMasterData = loadMasterData;
 exports.getProduct = getProduct;
 exports.findProductById = findProductById;
