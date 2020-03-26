@@ -16,7 +16,6 @@ const dateDiff = (date1, date2) => {};
 
 // Add method getDetails to Product here
 
-
 // Define the MagicProduct class here
 
 
@@ -42,21 +41,23 @@ const loadProducts = (map, prodId) => {
             // Create and assign an instance of Product to prodObj here
             let prodObj;
 
-            for (let i = 0; i < prodKeys.length; i++) {
-                let property = prodKeys[i];
-                if (property == "id") {
-                    prodObj[property] = prodId;
-                } else if (property == "name") {
-                    prodObj[property] = key;
-                } else if (property == "price") {
-                    prodObj[property] = value.pr;
-                } else if (property == "expiryDate") {
-                    prodObj[property] = value.dt;
+            if(prodObj != undefined && prodObj != null) {
+                for (let i = 0; i < prodKeys.length; i++) {
+                    let property = prodKeys[i];
+                    if (property == "id") {
+                        prodObj[property] = prodId;
+                    } else if (property == "name") {
+                        prodObj[property] = key;
+                    } else if (property == "price") {
+                        prodObj[property] = value.pr;
+                    } else if (property == "expiryDate") {
+                        prodObj[property] = value.dt;
+                    }
                 }
-            }
 
-            a.push(prodObj);
-            prodId++;
+                a.push(prodObj);
+                prodId++;
+            }
         }
     }
 
@@ -80,25 +81,27 @@ const loadMagicProducts = (map, prodId) => {
             // Create and assign an instance of MagicProduct to prodObj here
             let magProdObj;
 
-            for (let i = 0; i < magProdKeys.length; i++) {
-                let property = magProdKeys[i];
-                if (property == "id") { 
-                    magProdObj[property] = prodId;
-                } else if (property == "name") {
-                    magProdObj[property] = key;
-                } else if (property == "price") {
-                    magProdObj[property] = value.pr;
-                } else if (property == "expiryDate") {
-                    magProdObj[property] = value.dt;
-                } else if (property == "points") {
-                    magProdObj[property] = value.pt;
-                } else if (property == "isBonus") {
-                    magProdObj[property] = value.isB;
+            if(magProdObj != undefined && magProdObj != null) {
+                for (let i = 0; i < magProdKeys.length; i++) {
+                    let property = magProdKeys[i];
+                    if (property == "id") { 
+                        magProdObj[property] = prodId;
+                    } else if (property == "name") {
+                        magProdObj[property] = key;
+                    } else if (property == "price") {
+                        magProdObj[property] = value.pr;
+                    } else if (property == "expiryDate") {
+                        magProdObj[property] = value.dt;
+                    } else if (property == "points") {
+                        magProdObj[property] = value.pt;
+                    } else if (property == "isBonus") {
+                        magProdObj[property] = value.isB;
+                    }
                 }
-            }
 
-            a.push(magProdObj);
-            prodId++;
+                a.push(magProdObj);
+                prodId++;
+            }
         }
     }
     return a;
@@ -335,7 +338,13 @@ function doAction(o, d) {
 
 main();
 
-
+if(typeof name != 'undefined') {exports.name = name;}
+if(typeof score != 'undefined') {exports.score = score;}
+if(typeof items != 'undefined') {exports.items = items;}
+if(typeof player != 'undefined') {exports.player = player;}
+if(typeof Product != 'undefined') {exports.Product = Product;}
+if(typeof MagicProduct != 'undefined') {exports.MagicProduct = MagicProduct;}
+if(typeof Rating != 'undefined') {exports.Rating = Rating;}
 exports.dateDiff = dateDiff;
 exports.loadProducts = loadProducts;
 exports.loadMagicProducts = loadMagicProducts;
