@@ -1,3 +1,4 @@
+let gameComplete = false;
 // Define the three constants here
 
 
@@ -15,6 +16,7 @@ const dateDiff = (date1, date2) => {};
 
 
 // Add method getDetails to Product here
+
 
 // Define the MagicProduct class here
 
@@ -158,14 +160,16 @@ function loadMasterData() {
 }
 
 // Complete this function
-const getProduct = (prodList) => {
-    // Populate `rand` with a radom integer beiween 1 and 20 (1 and 20 included), created using the Math built-in object type
-    let rand; 
-    return prodList.find(findProductById(rand));
-};
+const findProductById = (id) => {};
 
 // Complete this function
-const findProductById = (id) => {};
+const generateProductId = () => {};
+
+
+const getProduct = (prodList,pId) => {
+    return prodList.find(findProductById(pId));
+};
+
 
 // Complete this function
 const  claculateBill = (prod, tBill) => {};
@@ -209,13 +213,12 @@ function init(data) {
     console.log("2 - Quit".green);
     console.log("=============================================================================================\n");
 
-    if(Object.is(data,undefined)) {
+    if(Object.is(data,undefined) || gameComplete == false) {
         console.log("Game under construction ...");
     } else {
         rl.question("What's your name? ", function (name) {
             // Assign the player's name to the user entered name here
 
-            console.log(`Welcome ${player.name} !!!`.blue);
             console.log(`Welcome ${player.name} !!!`.blue);
             start(data);
         });
@@ -273,7 +276,7 @@ const shop = (prodList, lastProd) => {
 };
 
 // Complete this function
-const rateAndExit = () => {
+const rateAndExit = () => {    
     // Create a new instance of `Rating` and assign it to a variable named `playerRating` here
     rl.question("How would you rate this game on a scale of 1-10 (1 being the lowest)?:", function (r) {
         if(r == "" || isNaN(r) || r == 0 || r > 10) {
@@ -304,6 +307,11 @@ const exitWon = () => {
     console.log(`Congratulations!!! You became ${finalScore}!`.blue);
     rateAndExit();
 };
+
+// Uncomment this function once you fully implement the game to be able to run it
+// (function setGameCompleteFlag(){
+//     gameComplete = true;
+// })();
 
 function main() {
     let products = loadMasterData();
@@ -338,6 +346,7 @@ function doAction(o, d) {
 
 main();
 
+exports.gameComplete = gameComplete;
 if(typeof name != 'undefined') {exports.name = name;}
 if(typeof score != 'undefined') {exports.score = score;}
 if(typeof items != 'undefined') {exports.items = items;}
@@ -349,8 +358,9 @@ exports.dateDiff = dateDiff;
 exports.loadProducts = loadProducts;
 exports.loadMagicProducts = loadMagicProducts;
 exports.loadMasterData = loadMasterData;
-exports.getProduct = getProduct;
 exports.findProductById = findProductById;
+exports.generateProductId = generateProductId;
+exports.getProduct = getProduct;
 exports.findPointsToBill = findPointsToBill;
 exports.findPointsForExpDate = findPointsForExpDate;
 exports.claculateBill = claculateBill;
