@@ -172,7 +172,7 @@ const getProduct = (prodList,pId) => {
 
 
 // Complete this function
-const  claculateBill = (prod, tBill) => {};
+const  calculateBill = (prod, tBill) => {};
 
 const findPointsToBill = (roundedTotal) => {
     if (roundedTotal > 10 && roundedTotal <= 100) {
@@ -237,8 +237,8 @@ function start(data) {
 }
 
 // Complete this function
-const shop = (prodList, lastProd) => {
-    let totalBill = 0;
+const shop = (prodList, tBill, lastProd) => {
+    let totalBill = tBill;
     let product = null; // Assign the value of `product` here
     let productDetails = null; // Assign the value of `productDetails` here
  
@@ -246,17 +246,18 @@ const shop = (prodList, lastProd) => {
         const regexYes = null; // Use the RegExp built-in object type here as appropriate
         const regexNo = null; // Use the RegExp built-in object type here as appropriate
         if (regexYes.test(option)) {
-            totalBill = claculateBill(product, totalBill);
+            totalBill = calculateBill(product, totalBill);
             claculatePoints(product, totalBill);
             console.log(`${player.name} you earned ${player.getCurrentScore()} points!`.bold);
             if (player.score > 500) {
+                //Object.defineProperty(player, "status", { value: "Shopping Master" }); This code to be added by the learner
                 exitWon();
             } else {
                 let iCount = ++player.items;
                 // Make the Object.defineProperty() call here to set the value of `items` using the value of `iCount`
 
                 if (player.items < 10) {
-                    shop(prodList);
+                    shop(prodList, totalBill);
                 } else {
                     exitLost();
                 }
@@ -264,13 +265,13 @@ const shop = (prodList, lastProd) => {
 
         } else if (regexNo.test(option)) {
             if (player.items < 10) {
-                shop(prodList);
+                shop(prodList, totalBill);
             } else {
                 exitLost();
             }
         } else {
             console.log("Invalid option! Enter Y or N.".red);
-            shop(prodList, product);
+            shop(prodList, totalBill, product);
         }
     });
 };
@@ -303,8 +304,8 @@ const exitLost = () => {
 
 // Complete this function
 const exitWon = () => {
-    let finalScore;
-    console.log(`Congratulations!!! You became ${finalScore}!`.blue);
+    let finalStatus;
+    console.log(`Congratulations!!! You became ${finalStatus}!`.blue);
     rateAndExit();
 };
 
@@ -338,7 +339,7 @@ const quit = () => {
 
 function doAction(o, d) {
     if (o == 1) {
-        shop(d);
+        shop(d,0);
     } else if (o == 2) {
         quit();
     }
@@ -363,7 +364,7 @@ exports.generateProductId = generateProductId;
 exports.getProduct = getProduct;
 exports.findPointsToBill = findPointsToBill;
 exports.findPointsForExpDate = findPointsForExpDate;
-exports.claculateBill = claculateBill;
+exports.calculateBill = calculateBill;
 exports.claculatePoints = claculatePoints;
 exports.init = init;
 exports.shop = shop;
