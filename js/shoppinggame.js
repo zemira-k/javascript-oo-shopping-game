@@ -197,7 +197,7 @@ const findPointsToBill = (roundedTotal) => {
 const findPointsForExpDate = (prod) => {};
 
 
-const claculatePoints = (prod, tBill) => {
+const calculatePoints = (prod, tBill) => {
     let pointsToBill = findPointsToBill(Math.round(tBill));
     let pointsForExpDate = findPointsForExpDate(prod);
 };
@@ -247,7 +247,7 @@ const shop = (prodList, tBill, lastProd) => {
         const regexNo = null; // Use the RegExp built-in object type here as appropriate
         if (regexYes.test(option)) {
             totalBill = calculateBill(product, totalBill);
-            claculatePoints(product, totalBill);
+            calculatePoints(product, totalBill);
             console.log(`${player.name} you earned ${player.getCurrentScore()} points!`.bold);
             if (player.score > 500) {
                 //Object.defineProperty(player, "status", { value: "Shopping Master" }); This code to be added by the learner
@@ -365,7 +365,7 @@ exports.getProduct = getProduct;
 exports.findPointsToBill = findPointsToBill;
 exports.findPointsForExpDate = findPointsForExpDate;
 exports.calculateBill = calculateBill;
-exports.claculatePoints = claculatePoints;
+exports.calculatePoints = calculatePoints;
 exports.init = init;
 exports.shop = shop;
 exports.rateAndExit = rateAndExit;

@@ -7,7 +7,7 @@ const source = fs.readFileSync('js/shoppinggame.js', 'utf8');
 
 let calculateBillNode;
 let findPointsForExpDateNode;
-let claculatePointsNode;
+let calculatePointsNode;
 
 esprima.parseModule(source, {}, function (node) {
     if (node.type == 'VariableDeclarator' &&
@@ -23,9 +23,9 @@ esprima.parseModule(source, {}, function (node) {
     }
 
     if (node.type == 'VariableDeclarator' &&
-        node.id.name == 'claculatePoints' &&
+        node.id.name == 'calculatePoints' &&
         node.init.type == 'ArrowFunctionExpression') {
-            claculatePointsNode = node;
+            calculatePointsNode = node;
     }
 });
 
@@ -155,9 +155,9 @@ describe('Shopping Master game - Implement points calculation logic', function (
     }); 
 
     describe("Set the score of the player ", () => {
-        it('Should set the score of the player by setting the `score` propert of the `player` object in `claculatePoints()` function. @set-player-score', function () {
+        it('Should set the score of the player by setting the `score` property of the `player` object in `calculatePoints()` function. @set-player-score', function () {
 
-            const scoreCalcExp = claculatePointsNode.init.body.body.find(element => element.type == 'ExpressionStatement');
+            const scoreCalcExp = calculatePointsNode.init.body.body.find(element => element.type == 'ExpressionStatement');
             
 
             test.assert(scoreCalcExp, "Have you set the `score` property of the `player` object?");
@@ -191,7 +191,7 @@ describe('Shopping Master game - Implement points calculation logic', function (
             shoppinggame.player.score = 100;
             const mp1 = new shoppinggame.MagicProduct(16, 'Christmas cake', 1000, oneYearLater, 10, true);
             
-            shoppinggame.claculatePoints(mp1,100);
+            shoppinggame.calculatePoints(mp1,100);
 
             //console.log(shoppinggame.player.score);
 
@@ -200,13 +200,13 @@ describe('Shopping Master game - Implement points calculation logic', function (
             shoppinggame.player.score = 100;
             const mp2 = new shoppinggame.MagicProduct(17, 'honey', 200, oneYearLater, 20, false);
 
-            shoppinggame.claculatePoints(mp2,100);
+            shoppinggame.calculatePoints(mp2,100);
 
             //console.log(shoppinggame.player.score);
 
             test.assert(shoppinggame.player.score == 85, "Have you deducted product points from the player's score if the product is not a bonus product, when the passed in product instance is a `MagicProduct`?");
             
-            // const ifStatement = claculatePointsNode.init.body.body.find(element => element.type == 'IfStatement');
+            // const ifStatement = calculatePointsNode.init.body.body.find(element => element.type == 'IfStatement');
         
             // test.assert(ifStatement, "Have you added to or subtracted from the player's score if the product is a `MagicProduct`?");
         
