@@ -1,41 +1,32 @@
 let gameComplete = false;
 // Define the three constants here
 
-
 // Define the player object here
 
-
 // Define the Product class - write the Constructor function for Product class here
-
 
 // Complete the dateDiff function
 const dateDiff = (date1, date2) => {};
 
-
 // Here, use Object.defineProperty to create property - daysToExpire
-
 
 // Add method getDetails to Product here
 
-
 // Define the MagicProduct class here
-
 
 // Establish inheritance between Product() & MagicProduct() here
 
-
 // Define Rating class here
-
 
 // Complete the loadProducts function
 const loadProducts = (map, prodId) => {
     // Call Object.keys() to load the property names of the Product object in to prodKeys array here
     let prodKeys = [];
     let a = new Array();
-   
-    let iterator_obj = map.entries(); 
 
-    if(prodKeys.length > 0) {
+    let iterator_obj = map.entries();
+
+    if (prodKeys.length > 0) {
         for (let item of iterator_obj) {
             const key = item[0];
             const value = item[1];
@@ -43,7 +34,7 @@ const loadProducts = (map, prodId) => {
             // Create and assign an instance of Product to prodObj here
             let prodObj;
 
-            if(prodObj != undefined && prodObj != null) {
+            if (prodObj != undefined && prodObj != null) {
                 for (let i = 0; i < prodKeys.length; i++) {
                     let property = prodKeys[i];
                     if (property == "id") {
@@ -73,9 +64,9 @@ const loadMagicProducts = (map, prodId) => {
     let magProdKeys = [];
     let a = new Array();
 
-    let iterator_obj = map.entries(); 
+    let iterator_obj = map.entries();
 
-    if(magProdKeys.length > 0) {
+    if (magProdKeys.length > 0) {
         for (let item of iterator_obj) {
             const key = item[0];
             const value = item[1];
@@ -83,10 +74,10 @@ const loadMagicProducts = (map, prodId) => {
             // Create and assign an instance of MagicProduct to prodObj here
             let magProdObj;
 
-            if(magProdObj != undefined && magProdObj != null) {
+            if (magProdObj != undefined && magProdObj != null) {
                 for (let i = 0; i < magProdKeys.length; i++) {
                     let property = magProdKeys[i];
-                    if (property == "id") { 
+                    if (property == "id") {
                         magProdObj[property] = prodId;
                     } else if (property == "name") {
                         magProdObj[property] = key;
@@ -135,7 +126,7 @@ function loadMasterData() {
     productData.set("greens", { pr: 50, dt: daysLater });
     productData.set("sugar", { pr: 100, dt: oneYearLater });
 
-    
+
     let pro = loadProducts(productData, prodId);
 
     //##############Load MagicProducts###############################
@@ -146,13 +137,13 @@ function loadMasterData() {
     magicProductData.set("champagne", { pr: 2000, dt: oneYearLater, pt: 40, isB: true });
     magicProductData.set("cocktails", { pr: 2000, dt: oneYearLater, pt: 40, isB: true });
 
-    
+
     prodId = pro.length + 1;
 
-    let mpro = loadMagicProducts(magicProductData,prodId);
+    let mpro = loadMagicProducts(magicProductData, prodId);
     let productsList;
 
-    if((pro != null && pro.length > 0) && (mpro != null && mpro.length > 0)) {
+    if ((pro != null && pro.length > 0) && (mpro != null && mpro.length > 0)) {
         productsList = pro.concat(mpro);
     }
 
@@ -166,13 +157,13 @@ const findProductById = (id) => {};
 const generateProductId = () => {};
 
 
-const getProduct = (prodList,pId) => {
+const getProduct = (prodList, pId) => {
     return prodList.find(findProductById(pId));
 };
 
 
 // Complete this function
-const  calculateBill = (prod, tBill) => {};
+const calculateBill = (prod, tBill) => {};
 
 const findPointsToBill = (roundedTotal) => {
     if (roundedTotal > 10 && roundedTotal <= 100) {
@@ -204,174 +195,173 @@ const calculatePoints = (prod, tBill) => {
 
 // Complete this function
 function init(data) {
-    console.log("Welcome to the Shopping Master game! You can shop for groceries and become a Shopping Master!");
-    console.log("We offer you grocery items that you can buy or reject. You can buy up to 10 items.");
-    console.log("As you go along your shopping journey you will collect points.");
-    console.log("If you earn 500 points you become a Shopping Master!");
-	console.log("You can start the game or quit using the following options.");
-    console.log("1 - Shop".green);
-    console.log("2 - Quit".green);
-    console.log("=============================================================================================\n");
+    if (Object.is(data, undefined) == false && gameComplete == true) {
+        console.log("Welcome to the Shopping Master game! You can shop for groceries and become a Shopping Master!");
+        console.log("We offer you grocery items that you can buy or reject. You can buy up to 10 items.");
+        console.log("As you go along your shopping journey you will collect points.");
+        console.log("If you earn 500 points you become a Shopping Master!");
+        console.log("You can start the game or quit using the following options.");
+        console.log("1 - Shop".green);
+        console.log("2 - Quit".green);
+        console.log("=============================================================================================\n");
 
-    if(Object.is(data,undefined) || gameComplete == false) {
-        console.log("Game under construction ...");
-    } else {
         rl.question("What's your name? ", function (name) {
-            // Assign the player's name to the user entered name here
-
+            // Assign the player object's name property to the user entered name here
             console.log(`Welcome ${player.name} !!!`.blue);
             start(data);
         });
+
     }
 }
 
-function start(data) {
-    rl.question("What would you like to do? <Enter option number>: ", function (option) {
-        if (option == "" || isNaN(option)) {
-            console.log("Invalid option! Enter 1 or 2".red);
-            start(data);
-        } else {
-            doAction(option, data);
-        }
-    });
-}
-
-// Complete this function
-const shop = (prodList, tBill, lastProd) => {
-    let totalBill = tBill;
-    let product = null; // Assign the value of `product` here
-    let productDetails = null; // Assign the value of `productDetails` here
- 
-    rl.question(`You can buy - ${productDetails}.\n Do you want to buy this item <Y/N>? `.yellow, function (option) {
-        const regexYes = null; // Use the RegExp built-in object type here as appropriate
-        const regexNo = null; // Use the RegExp built-in object type here as appropriate
-        if (regexYes.test(option)) {
-            totalBill = calculateBill(product, totalBill);
-            calculatePoints(product, totalBill);
-            console.log(`${player.name} you earned ${player.getCurrentScore()} points!`.bold);
-            if (player.score > 500) {
-                //Object.defineProperty(player, "status", { value: "Shopping Master" }); This code to be added by the learner
-                exitWon();
+    function start(data) {
+        rl.question("What would you like to do? <Enter option number>: ", function (option) {
+            if (option == "" || isNaN(option)) {
+                console.log("Invalid option! Enter 1 or 2".red);
+                start(data);
             } else {
-                let iCount = ++player.items;
-                // Make the Object.defineProperty() call here to set the value of `items` using the value of `iCount`
+                doAction(option, data);
+            }
+        });
+    }
 
+    // Complete this function
+    const shop = (prodList, tBill, lastProd) => {
+        let totalBill = tBill;
+        const prId = generateProductId();
+        let product = null; // Assign the value of `product` here
+        let productDetails = null; // Assign the value of `productDetails` here
+
+        rl.question(`You can buy - ${productDetails}.\n Do you want to buy this item <Y/N>? `.yellow, function (option) {
+            const regexYes = null; // Use the RegExp built-in object type here as appropriate
+            const regexNo = null; // Use the RegExp built-in object type here as appropriate
+            if (regexYes.test(option)) {
+                totalBill = calculateBill(product, totalBill);
+                calculatePoints(product, totalBill);
+                console.log(`${player.name} you earned ${player.getCurrentScore()} points!`.bold);
+                if (player.score > 500) {
+                    // Define and set new property status in the player object here
+                    exitWon();
+                } else {
+                    let iCount = ++player.items;
+                    // Make the Object.defineProperty() call here to set the value of `items` using the value of `iCount`
+                    
+                    if (player.items < 10) {
+                        shop(prodList, totalBill);
+                    } else {
+                        exitLost();
+                    }
+                }
+
+            } else if (regexNo.test(option)) {
                 if (player.items < 10) {
                     shop(prodList, totalBill);
                 } else {
                     exitLost();
                 }
-            }
-
-        } else if (regexNo.test(option)) {
-            if (player.items < 10) {
-                shop(prodList, totalBill);
             } else {
-                exitLost();
+                console.log("Invalid option! Enter Y or N.".red);
+                shop(prodList, totalBill, product);
             }
-        } else {
-            console.log("Invalid option! Enter Y or N.".red);
-            shop(prodList, totalBill, product);
-        }
-    });
-};
+        });
+    };
 
-// Complete this function
-const rateAndExit = () => {    
-    // Create a new instance of `Rating` and assign it to a variable named `playerRating` here
-    rl.question("How would you rate this game on a scale of 1-10 (1 being the lowest)?:", function (r) {
-        if(r == "" || isNaN(r) || r == 0 || r > 10) {
-            console.log("Invalid rating! Please nter a number from 1 - 10".red);
-            rateAndExit(); 
-        } else {
-            // Call `rating` setter method of `playerRating` to set user entered rate value here
+    // Complete this function
+    const rateAndExit = () => {
+        // Create a new instance of `Rating` and assign it to a variable named `playerRating` here
+        rl.question("How would you rate this game on a scale of 1-10 (1 being the lowest)?:", function (r) {
+            if (r == "" || isNaN(r) || r == 0 || r > 10) {
+                console.log("Invalid rating! Please nter a number from 1 - 10".red);
+                rateAndExit();
+            } else {
+                // Call `rating` setter method of `playerRating` to set user entered rate value here
 
-            // Call Object.assign() method here to populate `targer`
+                // Call Object.assign() method here to populate `targer`
 
-            console.log(`${target.name} you rated this game as ${target.rate}`.green);
-            console.log("Thank you for your valuable feedback.".blue);
-            rl.close();
-        }        
-    });
-};
+                console.log(`${target.name} you rated this game as ${target.rate}`.green);
+                console.log("Thank you for your valuable feedback.".blue);
+                rl.close();
+            }
+        });
+    };
 
-// Complete this function
-const exitLost = () => {
-    let pointsToReach; // Assign calculated value to `pointsToReach` here
-    console.log(`Your chances are over! You are short of ${pointsToReach} to become a Shopping Master. Good Luck for next time!`.yellow);
-    rateAndExit();
-};
+    // Complete this function
+    const exitLost = () => {
+        let pointsToReach; // Assign calculated value to `pointsToReach` here
+        console.log(`Your chances are over! You are short of ${pointsToReach} to become a Shopping Master. Good Luck for next time!`.yellow);
+        rateAndExit();
+    };
 
-// Complete this function
-const exitWon = () => {
-    let finalStatus;
-    console.log(`Congratulations!!! You became ${finalStatus}!`.blue);
-    rateAndExit();
-};
+    // Complete this function
+    const exitWon = () => {
+        let finalStatus;
+        console.log(`Congratulations!!! You became ${finalStatus}!`.blue);
+        rateAndExit();
+    };
 
-// Uncomment this function once you fully implement the game to be able to run it
-// (function setGameCompleteFlag(){
-//     gameComplete = true;
-// })();
+    // Uncomment this function once you fully implement the game to be able to run it
+    // (function setGameCompleteFlag(){
+    //     gameComplete = true;
+    // })();
 
-function main() {
-    let products = loadMasterData();
-    init(products);
-}
-
-
-
-///////////////////////////////////////////////////////////////
-const readline = require("readline");
-require('colors');
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
-
-const quit = () => {
-    rl.on("close", function () {
-        console.log("\nGAME OVER !!!".bold);
-    });
-    process.exit(0);
-};
-
-function doAction(o, d) {
-    if (o == 1) {
-        shop(d,0);
-    } else if (o == 2) {
-        quit();
+    function main() {
+        let products = loadMasterData();
+        init(products);
     }
-}
 
-main();
 
-exports.gameComplete = gameComplete;
-if(typeof name != 'undefined') {exports.name = name;}
-if(typeof score != 'undefined') {exports.score = score;}
-if(typeof items != 'undefined') {exports.items = items;}
-if(typeof player != 'undefined') {exports.player = player;}
-if(typeof Product != 'undefined') {exports.Product = Product;}
-if(typeof MagicProduct != 'undefined') {exports.MagicProduct = MagicProduct;}
-if(typeof Rating != 'undefined') {exports.Rating = Rating;}
-exports.dateDiff = dateDiff;
-exports.loadProducts = loadProducts;
-exports.loadMagicProducts = loadMagicProducts;
-exports.loadMasterData = loadMasterData;
-exports.findProductById = findProductById;
-exports.generateProductId = generateProductId;
-exports.getProduct = getProduct;
-exports.findPointsToBill = findPointsToBill;
-exports.findPointsForExpDate = findPointsForExpDate;
-exports.calculateBill = calculateBill;
-exports.calculatePoints = calculatePoints;
-exports.init = init;
-exports.shop = shop;
-exports.rateAndExit = rateAndExit;
-exports.exitLost = exitLost;
-exports.exitWon = exitWon;
-exports.main = main;
+
+    ///////////////////////////////////////////////////////////////
+    const readline = require("readline");
+    require('colors');
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+
+
+    const quit = () => {
+        rl.on("close", function () {
+            console.log("\nGAME OVER !!!".bold);
+        });
+        process.exit(0);
+    };
+
+    function doAction(o, d) {
+        if (o == 1) {
+            shop(d, 0);
+        } else if (o == 2) {
+            quit();
+        }
+    }
+
+    main();
+
+    exports.gameComplete = gameComplete;
+    if (typeof name != 'undefined') { exports.name = name; }
+    if (typeof score != 'undefined') { exports.score = score; }
+    if (typeof items != 'undefined') { exports.items = items; }
+    if (typeof player != 'undefined') { exports.player = player; }
+    if (typeof Product != 'undefined') { exports.Product = Product; }
+    if (typeof MagicProduct != 'undefined') { exports.MagicProduct = MagicProduct; }
+    if (typeof Rating != 'undefined') { exports.Rating = Rating; }
+    exports.dateDiff = dateDiff;
+    exports.loadProducts = loadProducts;
+    exports.loadMagicProducts = loadMagicProducts;
+    exports.loadMasterData = loadMasterData;
+    exports.findProductById = findProductById;
+    exports.generateProductId = generateProductId;
+    exports.getProduct = getProduct;
+    exports.findPointsToBill = findPointsToBill;
+    exports.findPointsForExpDate = findPointsForExpDate;
+    exports.calculateBill = calculateBill;
+    exports.calculatePoints = calculatePoints;
+    exports.init = init;
+    exports.shop = shop;
+    exports.rateAndExit = rateAndExit;
+    exports.exitLost = exitLost;
+    exports.exitWon = exitWon;
+    exports.main = main;
 
 
 
