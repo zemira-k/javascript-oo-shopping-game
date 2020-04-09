@@ -20,85 +20,92 @@ const dateDiff = (date1, date2) => {};
 
 // Complete the loadProducts function
 const loadProducts = (map, prodId) => {
-    // Call Object.keys() to load the property names of the Product object in to prodKeys array here
-    let prodKeys = [];
     let a = new Array();
+    try {
+        // Call Object.keys() to load the property names of the Product object in to prodKeys array here
+        let prodKeys = [];
 
-    let iterator_obj = map.entries();
+        let iterator_obj = map.entries();
 
-    if (prodKeys.length > 0) {
-        for (let item of iterator_obj) {
-            const key = item[0];
-            const value = item[1];
+        if (prodKeys.length > 0) {
+            for (let item of iterator_obj) {
+                const key = item[0];
+                const value = item[1];
 
-            // Create and assign an instance of Product to prodObj here
-            let prodObj;
+                // Create and assign an instance of Product to prodObj here
+                let prodObj;
 
-            if (prodObj != undefined && prodObj != null) {
-                for (let i = 0; i < prodKeys.length; i++) {
-                    let property = prodKeys[i];
-                    if (property == "id") {
-                        prodObj[property] = prodId;
-                    } else if (property == "name") {
-                        prodObj[property] = key;
-                    } else if (property == "price") {
-                        prodObj[property] = value.pr;
-                    } else if (property == "expiryDate") {
-                        prodObj[property] = value.dt;
+                if (prodObj != undefined && prodObj != null) {
+                    for (let i = 0; i < prodKeys.length; i++) {
+                        let property = prodKeys[i];
+                        if (property == "id") {
+                            prodObj[property] = prodId;
+                        } else if (property == "name") {
+                            prodObj[property] = key;
+                        } else if (property == "price") {
+                            prodObj[property] = value.pr;
+                        } else if (property == "expiryDate") {
+                            prodObj[property] = value.dt;
+                        }
                     }
-                }
 
-                a.push(prodObj);
-                prodId++;
+                    a.push(prodObj);
+                    prodId++;
+                }
             }
         }
-    }
 
-    return a;
+        return a;
+    } catch (e) {
+        return a;
+    }
 };
 
 
 // Complete the loadMagicProducts function
 const loadMagicProducts = (map, prodId) => {
-    // Call Object.key() to load the property names of the MagicProduct object in to magProdKeys array here
-    let magProdKeys = [];
     let a = new Array();
+    try {
+        // Call Object.key() to load the property names of the MagicProduct object in to magProdKeys array here
+        let magProdKeys = [];
 
-    let iterator_obj = map.entries();
+        let iterator_obj = map.entries();
 
-    if (magProdKeys.length > 0) {
-        for (let item of iterator_obj) {
-            const key = item[0];
-            const value = item[1];
+        if (magProdKeys.length > 0) {
+            for (let item of iterator_obj) {
+                const key = item[0];
+                const value = item[1];
 
-            // Create and assign an instance of MagicProduct to prodObj here
-            let magProdObj;
+                // Create and assign an instance of MagicProduct to prodObj here
+                let magProdObj;
 
-            if (magProdObj != undefined && magProdObj != null) {
-                for (let i = 0; i < magProdKeys.length; i++) {
-                    let property = magProdKeys[i];
-                    if (property == "id") {
-                        magProdObj[property] = prodId;
-                    } else if (property == "name") {
-                        magProdObj[property] = key;
-                    } else if (property == "price") {
-                        magProdObj[property] = value.pr;
-                    } else if (property == "expiryDate") {
-                        magProdObj[property] = value.dt;
-                    } else if (property == "points") {
-                        magProdObj[property] = value.pt;
-                    } else if (property == "isBonus") {
-                        magProdObj[property] = value.isB;
+                if (magProdObj != undefined && magProdObj != null) {
+                    for (let i = 0; i < magProdKeys.length; i++) {
+                        let property = magProdKeys[i];
+                        if (property == "id") {
+                            magProdObj[property] = prodId;
+                        } else if (property == "name") {
+                            magProdObj[property] = key;
+                        } else if (property == "price") {
+                            magProdObj[property] = value.pr;
+                        } else if (property == "expiryDate") {
+                            magProdObj[property] = value.dt;
+                        } else if (property == "points") {
+                            magProdObj[property] = value.pt;
+                        } else if (property == "isBonus") {
+                            magProdObj[property] = value.isB;
+                        }
                     }
-                }
 
-                a.push(magProdObj);
-                prodId++;
+                    a.push(magProdObj);
+                    prodId++;
+                }
             }
         }
+        return a;
+    } catch (e) {
+        return a;
     }
-    return a;
-
 };
 
 function loadMasterData() {
