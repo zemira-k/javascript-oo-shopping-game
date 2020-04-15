@@ -20,7 +20,8 @@
     "test:module2": "cross-env NODE_ENV=test mocha './test/module2.test.js' || true || exit 0",
     "test:module3": "cross-env NODE_ENV=test mocha './test/module3.test.js' || true || exit 0",
     "test:module4": "cross-env NODE_ENV=test mocha './test/module4.test.js' || true || exit 0",
-    "test:module5": "cross-env NODE_ENV=test mocha './test/module5.test.js' || true || exit 0"
+    "test:module5": "cross-env NODE_ENV=test mocha './test/module5.test.js' || true || exit 0",
+    "test:module6": "cross-env NODE_ENV=test mocha './test/module6.test.js' || true || exit 0"
   },
   "repository": {
     "type": "git",
