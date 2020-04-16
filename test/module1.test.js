@@ -196,6 +196,14 @@ describe('Shopping Master game - Define object-types/classes', function () {
                 prodNode.params.find(element => element.name == 'price') &&
                 prodNode.params.find(element => element.name == 'expiryDate'),
                 "Have you passed parameters `id`, `name`, `price` and `expiryDate` and to the constructor function?");
+            
+            test.assert((prodNode.params.length == 4 &&
+                    prodNode.params[0].name == 'id' &&
+                    prodNode.params[1].name == 'name' &&
+                    prodNode.params[2].name == 'price' &&
+                    prodNode.params[3].name == 'expiryDate'),
+                    "Have you passed parameters `id`, `name`, `price` and `expiryDate` in this order to the constructor function?");
+            
 
             test.assert(prodNode.body.body.find(element => (element.expression.type == 'AssignmentExpression' &&
                 element.expression.left.object &&
@@ -290,6 +298,15 @@ describe('Shopping Master game - Define object-types/classes', function () {
                 magProdNode.params.find(element => element.name == 'isBonus'),
                 "Have you passed parameters `id`, `name`, `price`, `expiryDate`, `points` and `isBonus` to the constructor function?");
 
+            test.assert((magProdNode.params.length == 6 &&
+                    magProdNode.params[0].name == 'id' &&
+                    magProdNode.params[1].name  == 'name' &&
+                    magProdNode.params[2].name  == 'price' &&
+                    magProdNode.params[3].name  == 'expiryDate' &&
+                    magProdNode.params[4].name  == 'points' &&
+                    magProdNode.params[5].name  == 'isBonus'),
+                    "Have you passed parameters `id`, `name`, `price`, `expiryDate`, `points` and `isBonus` in this order to the constructor function?");
+
             //
 
             const body = magProdNode.body.body;
@@ -311,6 +328,13 @@ describe('Shopping Master game - Define object-types/classes', function () {
             test.assert(argsLength == 5 &&
                 thisPassed &&
                 otherPassed, "Have you passed `this, id, name, price, expiryDate` as parameters?");
+
+            test.assert((argsLength == 5 &&
+                    thisPassed &&
+                    arguments[1].name == 'id' &&
+                    arguments[2].name == 'name' &&
+                    arguments[3].name == 'price' &&
+                    arguments[4].name == 'expiryDate'), "Have you passed `this, id, name, price, expiryDate` in this order as parameters?");
 
             const isBonus = body.filter(element => element.expression.right &&
                 element.expression.right.name == 'isBonus')
