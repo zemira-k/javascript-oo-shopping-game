@@ -48,31 +48,51 @@ describe('Shopping Master game - Implement the shopping functionality', function
 
             test.assert(hasConditionalExpression, "Have you used conditional (ternary) operator for the expression?")
 
-            const objectIsUsed = (shopFuncNode.init.body.body[2].declarations[0].init.test &&
+            const objectIsUsed = ((shopFuncNode.init.body.body[2].declarations[0].init.test &&
                 shopFuncNode.init.body.body[2].declarations[0].init.test.type == 'CallExpression' &&
                 shopFuncNode.init.body.body[2].declarations[0].init.test.callee &&
                 shopFuncNode.init.body.body[2].declarations[0].init.test.callee.object.name == 'Object' &&
                 shopFuncNode.init.body.body[2].declarations[0].init.test.callee.property.name == 'is' &&
                 shopFuncNode.init.body.body[2].declarations[0].init.test.arguments &&
                 shopFuncNode.init.body.body[2].declarations[0].init.test.arguments[0].name == 'lastProd' &&
-                shopFuncNode.init.body.body[2].declarations[0].init.test.arguments[1].name == 'undefined') ? true : false;
+                shopFuncNode.init.body.body[2].declarations[0].init.test.arguments[1].name == 'undefined') 
+                ||
+                (shopFuncNode.init.body.body[2].declarations[0].init.test.argument &&
+                    shopFuncNode.init.body.body[2].declarations[0].init.test.argument.type == 'CallExpression' &&
+                    shopFuncNode.init.body.body[2].declarations[0].init.test.argument.callee &&
+                    shopFuncNode.init.body.body[2].declarations[0].init.test.argument.callee.object.name == 'Object' &&
+                    shopFuncNode.init.body.body[2].declarations[0].init.test.argument.callee.property.name == 'is' &&
+                    shopFuncNode.init.body.body[2].declarations[0].init.test.argument.arguments[0].name == 'lastProd' &&
+                    shopFuncNode.init.body.body[2].declarations[0].init.test.argument.arguments[1].name == 'undefined')) ? true : false;
 
             test.assert(objectIsUsed, "Have you used Object.is() method to check the condition (if `lastProd` is `undefined`)?");
 
 
-            const isConsequentCorrect = (shopFuncNode.init.body.body[2].declarations[0].init.consequent &&
+            const isConsequentCorrect = ((shopFuncNode.init.body.body[2].declarations[0].init.consequent &&
                 shopFuncNode.init.body.body[2].declarations[0].init.consequent.type == 'CallExpression' &&
                 shopFuncNode.init.body.body[2].declarations[0].init.consequent.callee &&
                 shopFuncNode.init.body.body[2].declarations[0].init.consequent.callee.name == 'getProduct' &&
                 shopFuncNode.init.body.body[2].declarations[0].init.consequent.arguments &&
                 shopFuncNode.init.body.body[2].declarations[0].init.consequent.arguments[0].name == 'prodList' &&
-                shopFuncNode.init.body.body[2].declarations[0].init.consequent.arguments[1].name == 'prId') ? true : false;
+                shopFuncNode.init.body.body[2].declarations[0].init.consequent.arguments[1].name == 'prId') 
+                ||
+                (shopFuncNode.init.body.body[2].declarations[0].init.consequent &&
+                    shopFuncNode.init.body.body[2].declarations[0].init.consequent.type == 'Identifier' &&
+                    shopFuncNode.init.body.body[2].declarations[0].init.consequent.name == 'lastProd')) ? true : false;
 
             test.assert(isConsequentCorrect, "Have you called `getProduct()` function with parameters `prodList` followed by `prId` if the condition is truthy?");
 
-            const isAlternateCorrect = (shopFuncNode.init.body.body[2].declarations[0].init.alternate &&
+            const isAlternateCorrect = ((shopFuncNode.init.body.body[2].declarations[0].init.alternate &&
                 shopFuncNode.init.body.body[2].declarations[0].init.alternate.type == 'Identifier' &&
-                shopFuncNode.init.body.body[2].declarations[0].init.alternate.name == 'lastProd') ? true : false;
+                shopFuncNode.init.body.body[2].declarations[0].init.alternate.name == 'lastProd')
+                ||
+                (shopFuncNode.init.body.body[2].declarations[0].init.alternate &&
+                    shopFuncNode.init.body.body[2].declarations[0].init.alternate.type == 'CallExpression' &&
+                    shopFuncNode.init.body.body[2].declarations[0].init.alternate.callee &&
+                    shopFuncNode.init.body.body[2].declarations[0].init.alternate.callee.name == 'getProduct' &&
+                    shopFuncNode.init.body.body[2].declarations[0].init.alternate.arguments &&
+                    shopFuncNode.init.body.body[2].declarations[0].init.alternate.arguments[0].name == 'prodList' &&
+                    shopFuncNode.init.body.body[2].declarations[0].init.alternate.arguments[1].name == 'prId')) ? true : false;
 
 
             test.assert(isAlternateCorrect, "Have you put `lastProd` as the expression to execute if the condition is falsy?");
