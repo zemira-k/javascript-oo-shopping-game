@@ -6,40 +6,40 @@ const items = 0;
 
 // Define the player object here
 const player = {
-  name: name,
-  score: score,
-  items: items,
-  getCurrentScore: () => {
+  name,
+  score,
+  items,
+  getCurrentScore() {
     return this.score;
   },
-  addPoints: (points) => {
-    return this.score + points;
+  addPoints(points) {
+    this.score = this.score + points;
   },
-  deductPoints: (points) => {
-    return this.score - points;
+  deductPoints(points) {
+    this.score = this.score - points;
   },
 };
 
 // Define the Product class - write the Constructor function for Product class here
-class Product {
-  constructor(id, name, price, expiryDate) {
-    id = id;
-    name = name;
-    price = price;
-    expiryDate = expiryDate;
-  }
+function Product(id, name, price, expiryDate) {
+  this.id = id;
+  this.idname = name;
+  this.idprice = price;
+  this.idexpiryDate = expiryDate;
 }
 
 // Complete the dateDiff function
 const dateDiff = (date1, date2) => {
-  return Math.round(
-    (new Date(date1) - new Date(date2)) / (1000 * 60 * 60 * 24),
-  );
+  let timeDiff = Math.abs(date2.getTime() - date1.getTime());
+
+  let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+  return diffDays;
 };
 
 // Here, use Object.defineProperty to create property - daysToExpire
-Object.defineProperty(Product, "daysToExpire", {
-  get() {
+Object.defineProperty(Product.prototype, "daysToExpire", {
+  get: function () {
     return dateDiff(this.expiryDate, new Date());
   },
 });
@@ -50,34 +50,29 @@ Product.prototype.getDetails = function () {
 };
 
 // Define the MagicProduct class here
-class MagicProduct extends Product {
-  constructor(id, name, price, expiryDate, points, isBonus) {
-    function MagicProduct() {
-      Product.call(this, id, name, price, expiryDate);
-    }
-    points = points;
-    isBonus = isBonus;
-  }
+function MagicProduct(id, name, price, expiryDate, points, isBonus) {
+  Product.call(this, id, name, price, expiryDate);
+  this.points = points;
+  this.isBonus = isBonus;
 }
 
 // Establish inheritance between Product() & MagicProduct() here
-MagicProduct.prototype = Object.create(Product);
+MagicProduct.prototype = Object.create(Product.prototype);
 
 // Define Rating class here
 class Rating {
   constructor() {
-    rate = "";
-    const rating = {
-      set(value) {
-        value > 1 && value <= 4
-          ? "OK"
-          : value >= 5 && value <= 7
-          ? "GOOD"
-          : value > 7
-          ? "EXCEPTIONAL"
-          : "BAD";
-      },
-    };
+    this.rate = "";
+  }
+  set rating(value) {
+    this.rate =
+      value > 1 && value <= 4
+        ? "OK"
+        : value >= 5 && value <= 7
+        ? "GOOD"
+        : value > 7
+        ? "EXCEPTIONAL"
+        : "BAD";
   }
 }
 
